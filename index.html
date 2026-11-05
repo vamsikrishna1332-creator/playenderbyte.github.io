@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EnderByte Technologies | Next-Gen Software & Deployments</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        void: '#040409',
+                        panel: 'rgba(13, 14, 27, 0.75)',
+                        ender: {
+                            purple: '#9d4edd',
+                            neon: '#c77dff',
+                            cyan: '#00f0ff',
+                            glow: '#7b2cbf',
+                            pink: '#ff007f'
+                        }
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-glow': 'pulseGlow 3s ease-in-out infinite alternate',
+                        'border-glow': 'borderGlow 4s linear infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        pulseGlow: {
+                            '0%': { opacity: '0.4', filter: 'drop-shadow(0 0 15px #9d4edd)' },
+                            '100%': { opacity: '0.9', filter: 'drop-shadow(0 0 35px #00f0ff)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Neon Glows & Utilities */
+        .neon-border-purple {
+            box-shadow: 0 0 15px rgba(157, 78, 221, 0.25), inset 0 0 15px rgba(157, 78, 221, 0.1);
+        }
+        .neon-border-cyan {
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.25), inset 0 0 15px rgba(0, 240, 255, 0.1);
+        }
+        .neon-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 30px rgba(157, 78, 221, 0.35), 0 0 20px rgba(0, 240, 255, 0.2);
+            border-color: rgba(199, 125, 255, 0.6);
+        }
+        .neon-text-purple {
+            text-shadow: 0 0 10px rgba(199, 125, 255, 0.8), 0 0 25px rgba(157, 78, 221, 0.5);
+        }
+        .neon-text-cyan {
+            text-shadow: 0 0 10px rgba(0, 240, 255, 0.8), 0 0 25px rgba(0, 240, 255, 0.5);
+        }
+        .gradient-neon {
+            background: linear-gradient(135deg, #c77dff 0%, #00f0ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #040409;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #241442;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #9d4edd;
+        }
+    </style>
+</head>
+<body class="bg-void text-slate-100 font-sans selection:bg-ender-neon selection:text-black overflow-x-hidden relative">
+
+    <!-- Interactive Neon Particle Background -->
+    <canvas id="particleCanvas" class="fixed inset-0 pointer-events-none z-0 opacity-45"></canvas>
+
+    <!-- Top Neon Bar -->
+    <div class="h-1 w-full bg-gradient-to-r from-ender-pink via-ender-purple to-ender-cyan animate-pulse"></div>
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 backdrop-blur-xl bg-void/80 border-b border-purple-900/40">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-purple-800 to-cyan-500 p-[1.5px] transition-transform group-hover:scale-105 duration-300">
+                    <div class="w-full h-full bg-void rounded-[10px] flex items-center justify-center text-ender-cyan">
+                        <i class="fa-solid fa-cube text-xl group-hover:text-ender-neon transition-colors"></i>
+                    </div>
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-black text-xl tracking-wider text-white flex items-center gap-1">
+                        ENDER<span class="text-ender-neon">BYTE</span>
+                    </span>
+                    <span class="text-[10px] tracking-widest uppercase font-semibold text-cyan-400/80 -mt-1">Technologies</span>
+                </div>
+            </a>
+
+            <div class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
+                <a href="#services" class="hover:text-ender-cyan transition-colors">Services & Pricing</a>
+                <a href="#calculator" class="hover:text-ender-cyan transition-colors">Cost Calculator</a>
+                <a href="#pipeline" class="hover:text-ender-cyan transition-colors">Workflow</a>
+                <a href="#contact" class="hover:text-ender-cyan transition-colors">Direct Contact</a>
+            </div>
+
+            <!-- Direct Contact Link -->
+            <a href="mailto:dreavixmc@gmail.com?subject=General%20Inquiry%20-%20EnderByte%20Technologies" 
+               class="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-xs font-bold rounded-lg group bg-gradient-to-br from-purple-600 to-cyan-500 group-hover:from-purple-600 group-hover:to-cyan-400 hover:text-white shadow-[0_0_15px_rgba(157,78,221,0.5)]">
+                <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-[#0a0a14] rounded-md group-hover:bg-opacity-0">
+                    <i class="fa-solid fa-envelope mr-2 text-cyan-400"></i> dreavixmc@gmail.com
+                </span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative pt-24 pb-20 px-6 z-10">
+        <div class="max-w-5xl mx-auto text-center">
+            
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-purple-500/40 bg-purple-950/40 text-ender-neon text-xs font-semibold uppercase tracking-wider mb-8 animate-float shadow-[0_0_20px_rgba(157,78,221,0.3)]">
+                <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span> High-Velocity Scripting & Development
+            </div>
+
+            <h1 class="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight leading-[1.1] mb-6">
+                Code Engineered for <br>
+                <span class="gradient-neon">Raw Performance & Scale</span>
+            </h1>
+
+            <p class="text-slate-400 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed mb-10">
+                Custom Web Engineering, Python Automations, Minecraft Server Infrastructures, and Desktop Systems. Transparent pricing with zero agency bloat.
+            </p>
+
+            <div class="flex flex-wrap items-center justify-center gap-5">
+                <a href="#services" class="px-8 py-3.5 rounded-xl bg-gradient-to-r from-purple-600 to-ender-purple hover:from-purple-500 hover:to-cyan-500 text-white font-bold text-sm tracking-wide transition-all shadow-[0_0_25px_rgba(157,78,221,0.5)] hover:shadow-[0_0_35px_rgba(0,240,255,0.7)] flex items-center gap-2">
+                    Explore Services <i class="fa-solid fa-chevron-down text-xs"></i>
+                </a>
+                <a href="#calculator" class="px-8 py-3.5 rounded-xl bg-panel border border-cyan-500/30 hover:border-cyan-400 text-cyan-300 font-bold text-sm tracking-wide transition-all shadow-[0_0_15px_rgba(0,240,255,0.15)] flex items-center gap-2">
+                    <i class="fa-solid fa-sliders text-cyan-400"></i> Estimate Price
+                </a>
+            </div>
+
+            <!-- Quick Tech Spectrum Bar -->
+            <div class="mt-16 pt-8 border-t border-purple-900/30 flex flex-wrap justify-center items-center gap-6 sm:gap-12 text-slate-400 text-xs tracking-wider uppercase font-semibold">
+                <span class="hover:text-ender-neon transition"><i class="fa-brands fa-python text-yellow-400 mr-1.5 text-sm"></i> Python Scripting</span>
+                <span class="hover:text-cyan-400 transition"><i class="fa-solid fa-code text-cyan-400 mr-1.5 text-sm"></i> Modern Web</span>
+                <span class="hover:text-ender-neon transition"><i class="fa-solid fa-cube text-emerald-400 mr-1.5 text-sm"></i> Minecraft Engines</span>
+                <span class="hover:text-cyan-400 transition"><i class="fa-solid fa-microchip text-blue-400 mr-1.5 text-sm"></i> Electron & C++</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Grid Section -->
+    <section id="services" class="py-24 px-6 relative z-10">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-4">
+                <div>
+                    <h3 class="text-xs uppercase tracking-widest text-ender-cyan font-bold mb-2">Service Catalog</h3>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-white">Fixed & Adaptive Rates</h2>
+                </div>
+                <p class="text-slate-400 text-sm max-w-md">
+                    Direct developer pricing. For custom briefs or questions, mail us anytime at <span class="text-purple-300 font-mono">dreavixmc@gmail.com</span>.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+                <!-- Service 1: Web Pages -->
+                <div class="neon-card bg-panel border border-purple-900/40 rounded-2xl p-7 flex flex-col justify-between transition-all duration-300 backdrop-blur-md">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-purple-900/30 border border-purple-500/40 flex items-center justify-center text-ender-neon text-xl mb-6 shadow-[0_0_15px_rgba(157,78,221,0.2)]">
+                            <i class="fa-solid fa-globe"></i>
+                        </div>
+                        <span class="text-[11px] font-bold uppercase tracking-wider text-cyan-400 bg-cyan-950/40 border border-cyan-800/50 px-2.5 py-1 rounded-md">Frontend</span>
+                        <h3 class="text-xl font-bold text-white mt-3 mb-2">Web Page Creation</h3>
+                        <p class="text-xs text-slate-400 leading-relaxed mb-6">
+                            Clean, ultra-fast, responsive landing pages and modern business websites tailored to your branding.
+                        </p>
+                        
+                        <div class="mb-6 pb-6 border-b border-purple-900/40">
+                            <span class="text-3xl font-black text-white tracking-tight">₹1,500</span>
+                            <span class="text-xs text-slate-400"> / standalone page</span>
+                        </div>
+
+                        <ul class="text-xs text-slate-300 space-y-3 mb-8">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-bolt text-cyan-400"></i> Responsive Mobile Layout</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-bolt text-cyan-400"></i> Clean UI & Modern Animations</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-bolt text-cyan-400"></i> Free Deployment Support</li>
+                        </ul>
+                    </div>
+
+                    <a href="mailto:dreavixmc@gmail.com?subject=Booking:%20Web%20Page%20Creation%20(₹1,500)&body=Hello%20EnderByte%20Technologies,%0A%0AI%20would%20like%20to%20order%20the%20Web%20Page%20Creation%20service%20for%20₹1,500.%0A%0AProject%20Overview:%0A-" 
+                       class="w-full py-3 rounded-xl bg-purple-950/60 hover:bg-purple-600 border border-purple-500/30 hover:border-purple-400 text-white text-center text-xs font-bold uppercase tracking-wider transition-all duration-300">
+                        Order Webpage
+                    </a>
+                </div>
+
+                <!-- Service 2: Python Automation -->
+                <div class="neon-card bg-panel border border-purple-900/40 rounded-2xl p-7 flex flex-col justify-between transition-all duration-300 backdrop-blur-md">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-yellow-900/20 border border-yellow-500/40 flex items-center justify-center text-yellow-400 text-xl mb-6 shadow-[0_0_15px_rgba(234,179,8,0.2)]">
+                            <i class="fa-brands fa-python"></i>
+                        </div>
+                        <span class="text-[11px] font-bold uppercase tracking-wider text-yellow-400 bg-yellow-950/40 border border-yellow-800/50 px-2.5 py-1 rounded-md">Scripting</span>
+                        <h3 class="text-xl font-bold text-white mt-3 mb-2">Python Automation</h3>
+                        <p class="text-xs text-slate-400 leading-relaxed mb-6">
+                            Intelligent bot creation, web data scraping, repetitive task automation, and file manipulation.
+                        </p>
+                        
+                        <div class="mb-6 pb-6 border-b border-purple-900/40">
+                            <span class="text-3xl font-black text-white tracking-tight">₹1,000</span>
+                            <span class="text-xs text-slate-400"> / script</span>
+                        </div>
+
+                        <ul class="text-xs text-slate-300 space-y-3 mb-8">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-bolt text-yellow-400"></i> Web Scraping (Selenium/BS4)</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-bolt text-yellow-400"></i> Custom Bots & Alert Triggers</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-bolt text-yellow-400"></i> Setup instructions included</li>
+                        </ul>
+                    </div>
+
+                    <a href="mailto:dreavixmc@gmail.com?subject=Booking:%20Python%20Automation%20Script%20(₹1,000)&body=Hello%20EnderByte%20Technologies,%0A%0AI%20need%20a%20Python%20automation%20script%20(₹1,000).%0A%0AAutomation%20Details:%0A-" 
+                       class="w-full py-3 rounded-xl bg-purple-950/60 hover:bg-yellow-600/80 border border-purple-500/30 hover:border-yellow-400 text-white text-center text-xs font-bold uppercase tracking-wider transition-all duration-300">
+                        Order Script
+                    </a>
+                </div>
+
+                <!-- Service 3: Minecraft Server Setup -->
+                <div class="neon-card bg-panel border border-purple-900/40 rounded-2xl p-7 flex flex-col justify-between transition-all duration-300 backdrop-blur-md">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-emerald-900/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 text-xl mb-6 shadow-[0_0_15px_rgba(16,185,129,0.2)]">
+                            <i class="fa-solid fa-server"></i>
+                        </div>
+                        <span class="text-[11px] font-bold uppercase tracking-wider text-emerald-400 bg-emerald-950/40 border border-emerald-800/50 px-2.5 py-1 rounded-md">Hosting / Ops</span>
+                        <h3 class="text-xl font-bold text-white mt-3 mb-2">Minecraft Server Setup</h3>
+                        <p class="text-xs text-slate-400 leading-relaxed mb-6">
+                            Configured directly on your home PC, hardware rig, or dedicated cloud Linux/Windows VPS.
+                        </p>
+                        
+                        <div class="mb-6 pb-6 border-b border-purple-900/40">
+                            <span class="text-3xl font-black text-white tracking-tight">₹500</span>
+                            <span class="text-xs text-slate-400"> / setup</span>
+                        </div>
+
+                        <ul class="text-xs text-slate-300 space-y-3 mb-8">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-bolt text-emerald-400"></i> Paper, Spigot, Forge, Fabric</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-bolt text-emerald-400"></i> Port Forwarding / Ngrok Setup</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-bolt text-emerald-400"></i> Memory & Lag Optimization</li>
+                        </ul>
+                    </div>
+
+                    <a href="mailto:dreavixmc@gmail.com?subject=Booking:%20Minecraft%20Server%20Setup%20(₹500)&body=Hello%20EnderByte%20Technologies,%0A%0AI%20need%20a%20Minecraft%20Server%20setup%20on%20my%20machine/VPS%20(₹500).%0A%0AMachine%20OS%20and%20Modpack/Server%20type:%0A-" 
+                       class="w-full py-3 rounded-xl bg-purple-950/60 hover:bg-emerald-600 border border-purple-500/30 hover:border-emerald-400 text-white text-center text-xs font-bold uppercase tracking-wider transition-all duration-300">
+                        Setup Server
+                    </a>
+                </div>
+
+                <!-- Service 4: Web Apps / Electron / C++ -->
+                <div class="neon-card bg-panel border-2 border-ender-neon rounded-2xl p-7 flex flex-col justify-between transition-all duration-300 backdrop-blur-md relative overflow-hidden shadow-[0_0_25px_rgba(157,78,221,0.25)]">
+                    <div class="absolute -top-3 -right-12 bg-gradient-to-r from-ender-purple to-ender-pink text-white text-[10px] uppercase font-black py-1 px-12 rotate-45 tracking-wider shadow-md">
+                        Flagship
+                    </div>
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-cyan-900/20 border border-cyan-500/40 flex items-center justify-center text-ender-cyan text-xl mb-6 shadow-[0_0_15px_rgba(0,240,255,0.2)]">
+                            <i class="fa-solid fa-microchip"></i>
+                        </div>
+                        <span class="text-[11px] font-bold uppercase tracking-wider text-ender-pink bg-pink-950/40 border border-pink-800/50 px-2.5 py-1 rounded-md">Software Suite</span>
+                        <h3 class="text-xl font-bold text-white mt-3 mb-2">Web & Desktop Apps</h3>
+                        <p class="text-xs text-slate-400 leading-relaxed mb-6">
+                            Electron cross-platform desktop GUIs, high-throughput C++ algorithms, or comprehensive web portals.
+                        </p>
+                        
+                        <div class="mb-6 pb-6 border-b border-purple-900/40">
+                            <span class="text-2xl font-black text-white tracking-tight">₹2,000 – ₹10,000</span>
+                            <span class="text-xs text-slate-400 block mt-1">(Avg. range; scales with scope)</span>
+                        </div>
+
+                        <ul class="text-xs text-slate-300 space-y-3 mb-8">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-bolt text-ender-neon"></i> Native Electron Windows/Mac Apps</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-bolt text-ender-neon"></i> C++ High-Speed Logic & Tools</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-bolt text-ender-neon"></i> Custom Database / API integrations</li>
+                        </ul>
+                    </div>
+
+                    <a href="mailto:dreavixmc@gmail.com?subject=Quote%20Request:%20Custom%20App%20(Electron/C++/Web)&body=Hello%20EnderByte%20Technologies,%0A%0AI%20am%20looking%20for%20a%20custom%20app%20in%20the%20₹2,000%20-%20₹10,000+%20bracket.%0A%0AProject%20Requirements:%0A-" 
+                       class="w-full py-3 rounded-xl bg-gradient-to-r from-ender-purple to-ender-cyan hover:opacity-90 text-white text-center text-xs font-bold uppercase tracking-wider transition-all duration-300 shadow-[0_0_20px_rgba(157,78,221,0.5)]">
+                        Request App Quote
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Cost Matrix / Quote Builder -->
+    <section id="calculator" class="py-20 px-6 relative z-10">
+        <div class="max-w-4xl mx-auto bg-panel border border-cyan-500/30 rounded-3xl p-8 sm:p-12 backdrop-blur-2xl shadow-[0_0_35px_rgba(0,240,255,0.15)]">
+            <div class="text-center max-w-xl mx-auto mb-10">
+                <span class="text-xs font-bold uppercase tracking-widest text-ender-cyan">Instant Configuration</span>
+                <h3 class="text-3xl font-black text-white mt-2">Dynamic Quote Generator</h3>
+                <p class="text-slate-400 text-xs sm:text-sm mt-2">Select the modular parts you need. Click the button to dispatch a ready-made email order directly to us.</p>
+            </div>
+
+            <div class="space-y-4">
+                <!-- Toggle 1 -->
+                <label class="flex items-center justify-between p-4 bg-[#0a0a16]/90 rounded-2xl border border-purple-900/50 cursor-pointer hover:border-ender-neon transition-all">
+                    <div class="flex items-center gap-3">
+                        <input type="checkbox" id="calc-web" value="1500" data-label="Web Page (₹1,500)" class="calc-checkbox w-5 h-5 accent-purple-500 rounded cursor-pointer">
+                        <div>
+                            <p class="font-bold text-white text-sm">Responsive Web Page Creation</p>
+                            <p class="text-[11px] text-slate-400">Mobile-optimized, clean HTML/Tailwind frontend</p>
+                        </div>
+                    </div>
+                    <span class="text-ender-neon font-black text-sm">+₹1,500</span>
+                </label>
+
+                <!-- Toggle 2 -->
+                <label class="flex items-center justify-between p-4 bg-[#0a0a16]/90 rounded-2xl border border-purple-900/50 cursor-pointer hover:border-ender-neon transition-all">
+                    <div class="flex items-center gap-3">
+                        <input type="checkbox" id="calc-script" value="1000" data-label="Python Script (₹1,000)" class="calc-checkbox w-5 h-5 accent-purple-500 rounded cursor-pointer">
+                        <div>
+                            <p class="font-bold text-white text-sm">Python Automation Script</p>
+                            <p class="text-[11px] text-slate-400">Data parser, web scraper, or automation bot</p>
+                        </div>
+                    </div>
+                    <span class="text-ender-neon font-black text-sm">+₹1,000</span>
+                </label>
+
+                <!-- Toggle 3 -->
+                <label class="flex items-center justify-between p-4 bg-[#0a0a16]/90 rounded-2xl border border-purple-900/50 cursor-pointer hover:border-ender-neon transition-all">
+                    <div class="flex items-center gap-3">
+                        <input type="checkbox" id="calc-mc" value="500" data-label="Minecraft Setup (₹500)" class="calc-checkbox w-5 h-5 accent-purple-500 rounded cursor-pointer">
+                        <div>
+                            <p class="font-bold text-white text-sm">Minecraft Server Setup</p>
+                            <p class="text-[11px] text-slate-400">Full installation, network port setup & plugins on client machine</p>
+                        </div>
+                    </div>
+                    <span class="text-ender-neon font-black text-sm">+₹500</span>
+                </label>
+
+                <!-- Range Slider for Web / Electron / C++ apps -->
+                <div class="p-5 bg-[#0a0a16]/90 rounded-2xl border border-purple-900/50">
+                    <div class="flex justify-between items-center mb-3">
+                        <div>
+                            <p class="font-bold text-white text-sm">Full Web Application or Desktop Software</p>
+                            <p class="text-[11px] text-slate-400">Electron GUI tool, C++ module, or complex app (₹2,000 to ₹10,000+)</p>
+                        </div>
+                        <span id="slider-display" class="font-black text-ender-cyan text-sm">None</span>
+                    </div>
+                    <input type="range" id="app-range" min="0" max="10000" step="2000" value="0" class="w-full accent-cyan-400 cursor-pointer">
+                    <div class="flex justify-between text-[10px] uppercase font-bold text-slate-500 mt-2">
+                        <span>None</span>
+                        <span>₹2,000</span>
+                        <span>₹4,000</span>
+                        <span>₹6,000</span>
+                        <span>₹8,000</span>
+                        <span>₹10,000+</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Calculation Output -->
+            <div class="mt-8 pt-6 border-t border-purple-900/50 flex flex-col sm:flex-row items-center justify-between gap-6">
+                <div>
+                    <span class="text-[11px] text-slate-400 font-semibold uppercase tracking-wider block">Estimated Quote Total</span>
+                    <span id="grand-total" class="text-4xl font-black text-white tracking-tight neon-text-cyan">₹0</span>
+                </div>
+
+                <a id="mail-quote-btn" href="mailto:dreavixmc@gmail.com?subject=Service%20Booking&body=Hello%20EnderByte%20Technologies,%0A%0AMy%20selected%20configuration:%0A" 
+                   class="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-gradient-to-r from-ender-neon to-cyan-400 hover:from-purple-500 hover:to-cyan-300 text-black font-black text-xs uppercase tracking-wider transition-all shadow-[0_0_20px_rgba(0,240,255,0.4)] flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-paper-plane"></i> Send Estimate to dreavixmc@gmail.com
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Structured 4-Step Pipeline -->
+    <section id="pipeline" class="py-20 px-6 border-t border-purple-900/30 relative z-10">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16">
+                <span class="text-xs uppercase font-bold tracking-widest text-ender-cyan">Structured Execution</span>
+                <h2 class="text-3xl font-extrabold text-white mt-1">How We Deliver</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div class="p-6 bg-panel border border-purple-900/30 rounded-2xl relative">
+                    <span class="text-3xl font-black text-purple-600/40 absolute top-4 right-4">01</span>
+                    <div class="text-ender-cyan text-lg mb-3"><i class="fa-solid fa-clipboard-check"></i></div>
+                    <h4 class="font-bold text-white text-base mb-1">Scope & Agreement</h4>
+                    <p class="text-xs text-slate-400">Email your specifications to dreavixmc@gmail.com. We fix the scope and price.</p>
+                </div>
+                <div class="p-6 bg-panel border border-purple-900/30 rounded-2xl relative">
+                    <span class="text-3xl font-black text-purple-600/40 absolute top-4 right-4">02</span>
+                    <div class="text-ender-neon text-lg mb-3"><i class="fa-solid fa-code"></i></div>
+                    <h4 class="font-bold text-white text-base mb-1">Rapid Build</h4>
+                    <p class="text-xs text-slate-400">Scripts, servers, or UI are developed with clean code practices and zero delay.</p>
+                </div>
+                <div class="p-6 bg-panel border border-purple-900/30 rounded-2xl relative">
+                    <span class="text-3xl font-black text-purple-600/40 absolute top-4 right-4">03</span>
+                    <div class="text-ender-cyan text-lg mb-3"><i class="fa-solid fa-vial-circle-check"></i></div>
+                    <h4 class="font-bold text-white text-base mb-1">Testing & Polish</h4>
+                    <p class="text-xs text-slate-400">Stress testing scripts, validating server connections, and checking responsiveness.</p>
+                </div>
+                <div class="p-6 bg-panel border border-purple-900/30 rounded-2xl relative">
+                    <span class="text-3xl font-black text-purple-600/40 absolute top-4 right-4">04</span>
+                    <div class="text-emerald-400 text-lg mb-3"><i class="fa-solid fa-circle-check"></i></div>
+                    <h4 class="font-bold text-white text-base mb-1">Handover & Live</h4>
+                    <p class="text-xs text-slate-400">Delivery of files, server access credentials, source files, and running guidelines.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Direct Contact Section -->
+    <section id="contact" class="py-24 px-6 relative z-10">
+        <div class="max-w-3xl mx-auto bg-gradient-to-b from-[#121326] to-[#070710] border border-ender-neon/40 rounded-3xl p-8 sm:p-12 shadow-[0_0_40px_rgba(157,78,221,0.2)]">
+            <div class="text-center mb-8">
+                <span class="text-xs font-bold uppercase tracking-widest text-ender-cyan">Direct Communication</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-1">Get in Touch</h2>
+                <p class="text-slate-400 text-sm mt-3">
+                    For all inquiries, setups, automation, and applications, reach out directly at:
+                </p>
+                <div class="mt-4 inline-flex items-center gap-3 px-5 py-2.5 rounded-xl bg-purple-950/60 border border-purple-500/40 text-cyan-300 font-mono text-base font-bold shadow-[0_0_15px_rgba(0,240,255,0.2)]">
+                    <i class="fa-solid fa-envelope text-ender-neon"></i>
+                    <span>dreavixmc@gmail.com</span>
+                    <button onclick="copyEmail()" title="Copy Email" class="ml-2 px-2 py-1 rounded bg-purple-900/80 hover:bg-purple-700 text-white text-xs transition">
+                        <i id="copy-icon" class="fa-regular fa-copy"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Pre-populated Quick Mail Generator Form -->
+            <form onsubmit="handleDirectSubmit(event)" class="space-y-5">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <div>
+                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Your Name / Nickname</label>
+                        <input id="form-name" type="text" required placeholder="E.g. Alex" class="w-full bg-[#0a0a14] border border-purple-900/60 focus:border-cyan-400 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-600 focus:outline-none transition">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Service Category</label>
+                        <select id="form-service" class="w-full bg-[#0a0a14] border border-purple-900/60 focus:border-cyan-400 rounded-xl px-4 py-3 text-sm text-white focus:outline-none transition">
+                            <option value="Web Page (₹1500)">Web Page Creation (₹1,500)</option>
+                            <option value="Python Script (₹1000)">Python Automation Script (₹1,000)</option>
+                            <option value="Minecraft Server (₹500)">Minecraft Server Setup (₹500)</option>
+                            <option value="Custom App (₹2k-10k+)">Web / Electron / C++ App (₹2,000 - ₹10,000+)</option>
+                            <option value="Other Custom Request">Other / Multiple</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Project Brief</label>
+                    <textarea id="form-details" rows="4" required placeholder="Tell us what you want built, server specifications, or scripts required..." class="w-full bg-[#0a0a14] border border-purple-900/60 focus:border-cyan-400 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-600 focus:outline-none transition"></textarea>
+                </div>
+
+                <button type="submit" class="w-full py-4 rounded-xl bg-gradient-to-r from-purple-600 via-ender-neon to-cyan-400 hover:opacity-95 text-black font-extrabold text-sm uppercase tracking-wider transition-all duration-300 shadow-[0_0_25px_rgba(157,78,221,0.5)]">
+                    <i class="fa-solid fa-paper-plane mr-2"></i> Launch Email to dreavixmc@gmail.com
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-10 border-t border-purple-900/30 bg-void relative z-10 text-center text-xs text-slate-500">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
+                <span class="font-bold text-slate-300 tracking-wider">EnderByte Technologies</span>
+            </div>
+            <p>Direct inquiries: <a href="mailto:dreavixmc@gmail.com" class="text-ender-cyan hover:underline">dreavixmc@gmail.com</a></p>
+            <p>&copy; 2026 EnderByte Tech. High performance software.</p>
+        </div>
+    </footer>
+
+    <!-- Interactive Canvas & Calculator Logic -->
+    <script>
+        // 1. Neon Particle Matrix Web
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+        let width, height, particles;
+
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * 0.7;
+                this.vy = (Math.random() - 0.5) * 0.7;
+                this.radius = Math.random() * 1.5 + 0.8;
+                this.color = Math.random() > 0.5 ? '#9d4edd' : '#00f0ff';
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                if (this.x < 0 || this.x > width) this.vx *= -1;
+                if (this.y < 0 || this.y > height) this.vy *= -1;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            const count = Math.min(Math.floor((width * height) / 16000), 75);
+            for (let i = 0; i < count; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 110) {
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(157, 78, 221, ${0.18 - dist / 700})`;
+                        ctx.lineWidth = 0.6;
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('resize', () => { resize(); initParticles(); });
+        resize();
+        initParticles();
+        animate();
+
+        // 2. Interactive Calculator & Mailto Link Assembler
+        const checkboxes = document.querySelectorAll('.calc-checkbox');
+        const slider = document.getElementById('app-range');
+        const sliderDisplay = document.getElementById('slider-display');
+        const grandTotalDisplay = document.getElementById('grand-total');
+        const mailQuoteBtn = document.getElementById('mail-quote-btn');
+
+        function updateQuote() {
+            let total = 0;
+            let items = [];
+
+            checkboxes.forEach(cb => {
+                if (cb.checked) {
+                    total += parseInt(cb.value);
+                    items.push(cb.getAttribute('data-label'));
+                }
+            });
+
+            const sliderVal = parseInt(slider.value);
+            total += sliderVal;
+
+            if (sliderVal === 0) {
+                sliderDisplay.textContent = 'None';
+            } else if (sliderVal === 10000) {
+                sliderDisplay.textContent = '₹10,000+ (High-End)';
+                items.push('Full App (₹10,000+)');
+            } else {
+                sliderDisplay.textContent = `₹${sliderVal.toLocaleString('en-IN')}`;
+                items.push(`Custom App tier (₹${sliderVal.toLocaleString('en-IN')})`);
+            }
+
+            grandTotalDisplay.textContent = `₹${total.toLocaleString('en-IN')}`;
+
+            // Build dynamic mailto URL
+            const subject = encodeURIComponent(`Project Quote Order: ₹${total.toLocaleString('en-IN')} - EnderByte Tech`);
+            const body = encodeURIComponent(
+                `Hello EnderByte Technologies,\n\n` +
+                `I have used your on-site calculator and would like to proceed with the following specification:\n` +
+                `Selected Items:\n- ${items.length > 0 ? items.join('\n- ') : 'None selected'}\n\n` +
+                `Estimated Total: ₹${total.toLocaleString('en-IN')}\n\n` +
+                `Additional Project Details:\n`
+            );
+            mailQuoteBtn.href = `mailto:dreavixmc@gmail.com?subject=${subject}&body=${body}`;
+        }
+
+        checkboxes.forEach(cb => cb.addEventListener('change', updateQuote));
+        slider.addEventListener('input', updateQuote);
+        updateQuote();
+
+        // 3. Form Direct Submission to Mailto
+        function handleDirectSubmit(e) {
+            e.preventDefault();
+            const name = document.getElementById('form-name').value;
+            const service = document.getElementById('form-service').value;
+            const details = document.getElementById('form-details').value;
+
+            const subject = encodeURIComponent(`New Project Inquiry from ${name} [${service}]`);
+            const body = encodeURIComponent(
+                `Name: ${name}\n` +
+                `Selected Service: ${service}\n\n` +
+                `Project Brief:\n${details}\n`
+            );
+
+            window.location.href = `mailto:dreavixmc@gmail.com?subject=${subject}&body=${body}`;
+        }
+
+        // 4. Quick Copy Email Helper
+        function copyEmail() {
+            navigator.clipboard.writeText('dreavixmc@gmail.com');
+            const icon = document.getElementById('copy-icon');
+            icon.className = 'fa-solid fa-check text-emerald-400';
+            setTimeout(() => {
+                icon.className = 'fa-regular fa-copy';
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
